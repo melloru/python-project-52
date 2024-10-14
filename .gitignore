@@ -1,0 +1,5 @@
+dist/
+*.pyc
+.venv/
+.idea/
+.env
