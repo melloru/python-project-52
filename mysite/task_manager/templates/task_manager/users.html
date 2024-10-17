@@ -4,37 +4,36 @@
 {% block title %}Менеджер задач Hexlet{% endblock %}
 
 
-{% block headname %}Пользователи{% endblock %}
+{% block headname %} Пользователи {% endblock %}
 
 
 {% block content %}
 
 <table class="table table-striped">
-  <thead>
+    <thead>
     <tr>
-      <th>ID</th>
-      <th>Имя пользователя</th>
-      <th>Полное имя</th>
-      <th>Дата создания</th>
-      <th></th>
+        <th>ID</th>
+        <th>Имя пользователя</th>
+        <th>Полное имя</th>
+        <th>Дата создания</th>
+        <th></th>
     </tr>
-  </thead>
-  <tbody>
-  {% for user in users %}
-      <tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+    <tr>
         <td>{{ user.pk }}</td>
-        <td>{{ user.nickname }}</td>
-        <td>{{ user.name }} {{ user.surname }}</td>
-        <td>{{ user.created_at }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.get_full_name }}</td>
+        <td>{{ user.date_joined }}</td>
         <td>
-          <a href="/users/1/update/">Изменить</a>
-          <br>
-          <a href="/users/1/delete/">Удалить</a>
+            <a href="#">Изменить</a>
+            <br>
+            <a href="#">Удалить</a>
         </td>
-      </tr>
-      <tr>
-  {% endfor %}
-  </tbody>
+    </tr>
+        {% endfor %}
+    </tbody>
 </table>
 
 {% endblock %}

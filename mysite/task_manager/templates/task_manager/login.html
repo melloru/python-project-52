@@ -10,15 +10,18 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
-
-
     <div class="mb-3">
+        {% if form.non_field_errors %}
+        <ul class="list-unstyled text-danger">
+            <li>{{ form.non_field_errors|join:", " }}</li>
+        </ul>
+        {% endif %}
         <label class="form-label" for="{{ form.username.id_for_label }}">Имя пользователя</label>
-            {{ form.username }}
+        {{ form.username }}
     </div>
     <div class="mb-3">
         <label class="form-label" for="{{ form.password.id_for_label }}">Пароль</label>
-            {{ form.password }}
+        {{ form.password }}
     </div>
 
     <input class="btn btn-primary" type="submit" value="Войти">

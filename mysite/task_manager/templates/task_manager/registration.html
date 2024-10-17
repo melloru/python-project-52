@@ -8,57 +8,27 @@
 
 
 {% block content %}
+
 <form method="post">
     {% csrf_token %}
+    {% for field in form %}
     <div class="mb-3">
-        <label class="form-label" for="{{ form.first_name.id_for_label }}">Имя</label>
-            {{ form.first_name }}
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="{{ form.second_name.id_for_label }}">Фамилия</label>
-        {{ form.last_name }}
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="{{ form.username.id_for_label }}">Имя пользователя</label>
-        {{ form.username }}
-        <div class="form-text">Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.</div>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="{{ form.password1.id_for_label }}">Пароль</label>
-        {{ form.password1 }}
-        <div class="form-text">
-            <ul>
-                <li>Ваш пароль должен содержать как минимум 3 символа.</li>
-            </ul>
+
+        <label class="form-label is-invalid" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+        <div class="invalid-feedback">
+            {{ field.errors }}
         </div>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="{{ form.password2.id_for_label }}">Подтверждение пароля</label>
-            {{ form.password2 }}
-        {% if form.password2.errors %}
-            <div class="text-danger">
-                {{ form.password1.errors }}
-            </div>
         {% endif %}
-        <div class="form-text">Для подтверждения введите, пожалуйста, пароль ещё раз.</div>
+
+        {% if field.help_text %}
+        <div class="form-text">{{ field.help_text }}</div>
+        {% endif %}
+
     </div>
+    {% endfor %}
     <input class="btn btn-primary" type="submit" value="Зарегистрировать">
 </form>
 
-{% if form.errors %}
-    <div class="alert alert-danger">
-        <ul>
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            {% endfor %}
-        </ul>
-        {% for error in form.non_field_errors %}
-            <li>{{ error }}</li>
-        {% endfor %}
-    </div>
-{% endif %}
-
 {% endblock %}
-
