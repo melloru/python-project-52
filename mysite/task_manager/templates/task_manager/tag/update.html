@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block title %}Менеджер задач Hexlet{% endblock %}
+
+{% block headname %}Изменение метки{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+  <div class="mb-3">
+      <label class="form-label is-invalid" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+        <div class="invalid-feedback">
+            {{ field.errors }}
+        </div>
+        {% endif %}
+  </div>
+    {% endfor %}
+    <input class="btn btn-primary" type="submit" value="Изменить">
+</form>
+{% endblock %}

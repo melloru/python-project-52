@@ -1,9 +1,9 @@
 from django import forms
-from django.forms import EmailField
-from .models import Users
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from .models import Status, Tag
+from .base_forms import BaseNameForm
 import re
 
 
@@ -43,14 +43,23 @@ class RegistrationForm(forms.ModelForm):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
-            user.save()  # Сохраняем пользователя в БД
+            user.save()
         return user
 
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(
-        label="Имя пользователя",
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Имя пользователя"}))
-    password = forms.CharField(
-        label="Пароль",
-        widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "Пароль"}))
+        username = forms.CharField(
+            label="Имя пользователя",
+            widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Имя пользователя"}))
+        password = forms.CharField(
+            label="Пароль",
+            widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "Пароль"}))
+
+
+class StatusForm(BaseNameForm):
+    class Meta(BaseNameForm.Meta):
+        model = Status
+
+class TagForm(BaseNameForm):
+    class Meta(BaseNameForm.Meta):
+        model = Tag

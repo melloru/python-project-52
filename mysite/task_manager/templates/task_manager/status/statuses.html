@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block headname %} Статусы {% endblock %}
+
+{% block content %}
+
+<a class="btn btn-primary mb-3" href="/statuses/create/">Создать статус</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Имя</th>
+      <th>Дата создания</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for status in statuses %}
+      <tr>
+        <td>{{ status.pk }}</td>
+        <td>{{ status.name }}</td>
+        <td>{{ status.created_at }}</td>
+        <td>
+          <a href="{{ status.get_update_status_url }}">Изменить</a>
+          <br>
+          <a href="{{ status.get_delete_status_url }}">Удалить</a>
+        </td>
+      </tr>
+    {% endfor %}
+
+
+  </tbody>
+</table>
+{% endblock %}
